@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Financeiro</title>
+
+<link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+
+<div class="menu-container">
+
+  <button class="hamburger" onclick="toggleMenu()">
+    ☰
+  </button>
+
+  <div id="sidebar" class="sidebar">
+
+    <div class="menu-header">
+      <button onclick="toggleMenu(event)" class="hamburger">☰</button>      <h3>Menu</h3>
+    </div>
+
+    <button id="btnDashboard" onclick="location.href='home.html'">📊 Dashboard</button>
+    <button id="btnCadUser" onclick="abrirModalCadUser()">🧑‍💻 Cadastro de Usuário</button>
+
+
+  </div>
+
+</div>
+
+<div class="container">
+
+  <h1>💰 Dashboard Financeiro</h1>
+
+  <!-- CARDS -->
+  <div class="cards">
+    <div class="card">
+      <h3>Entradas</h3>
+      <span class="entrada" id="totalEntradas">R$ 0,00</span>
+    </div>
+
+    <div class="card">
+      <h3>Saídas</h3>
+      <span class="saida" id="totalSaidas">R$ 0,00</span>
+    </div>
+
+    <div class="card">
+      <h3>Saldo</h3>
+      <span class="saldo" id="saldo">R$ 0,00</span>
+    </div>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <form id="form">
+    <input type="date" id="data" required>
+
+    <select id="tipo" required>
+      <option value="Saída">Saída</option>
+      <option value="Entrada">Entrada</option>
+    </select>
+
+    <input type="text" id="descricao" placeholder="Descrição" required>
+    <input type="number" id="valor" placeholder="Valor" required>
+    <input type="text" id="obs" placeholder="Observação">
+    <!-- <input type="text" id="pesquisar" placeholder="Pesquisar..."> -->
+
+    <button type="submit" id="btnAdicionar">Adicionar</button>
+  </form>
+
+  <!-- GRID -->
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Tipo</th>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Observação</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody id="tabela"></tbody>
+  </table>
+
+  <!-- PAGINAÇÃO -->
+  <div style="margin-top: 8px; display: flex; gap: 8px; justify-content: center; align-items: center;">
+    <button id="prevBtn">⬅ Anterior</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn">Próximo ➡</button>
+  </div>
+
+  </div>
+
+  <div id="modalEdit"
+      style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.6);
+        z-index:9999;
+        justify-content:center;
+        align-items:center;
+      ">
+
+    <div style="
+      background:#1e1e1e;
+      padding:20px;
+      border-radius:10px;
+      width:300px;
+      color:white;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    ">
+      
+      <h3>Editar lançamento</h3>
+
+      <input id="editData" type="date">
+      <select id="editTipo">
+        <option value="Entrada">Entrada</option>
+        <option value="Saída">Saída</option>
+      </select>
+
+      <input id="editDescricao" placeholder="Descrição">
+      <input id="editValor" type="number" placeholder="Valor">
+      <input id="editObs" placeholder="Observação">
+
+      <button onclick="salvarEdicao()">Salvar</button>
+      <button onclick="fecharModal()">Cancelar</button>
+
+    </div>
+  </div>
+
+  <div id="modalCadUser"
+      style="
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.6);
+        z-index:9999;
+        justify-content:center;
+        align-items:center;
+      ">
+
+    <div style="
+      background:#1e1e1e;
+      padding:20px;
+      border-radius:10px;
+      width:300px;
+      color:white;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    ">
+      
+      <h3>Cadastrar Usuário</h3>
+
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="text" id="email" placeholder="Email" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="password" id="confirmarSenha" placeholder="Confirmar Senha" required>
+      <button type="button" id="togglePassword" onclick="togglePassword()">👁️</button>
+
+
+      <span id="erroSenha" style="color: red; display: none;">As Senhas não são iguais.</span>
+      <span id="cadastroSucesso" style="color: green; display: none;">Usuário cadastrado com sucesso!</span>
+
+      <button onclick="cadastrarUsuario()">Cadastrar</button>
+      <button onclick="fecharModalCadUser()">Cancelar</button>
+
+
+    </div>
+  </div>
+
+</div>
+
+
+<script src="home.js"></script>
+</body>
+</html>
